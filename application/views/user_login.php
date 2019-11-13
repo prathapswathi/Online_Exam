@@ -71,7 +71,9 @@ body {
 }
 .login-form .avatar img {
     width: 100%;
+    height:100%
 }
+
 </style>
 </head>
 <body>
@@ -80,11 +82,11 @@ body {
 
     <form action="" method="post">
 		<div class="avatar" style="background-color:white;border:1px solid gray" >
-		<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQZrwZDGrkr-jgVLE-Z8U3xPhL4MxOoiUPv3J1qTyOQUh5W5EGW" alt="Avatar">
+		<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS6LGw3x8zaTK0TNxRX4VeSFhJgbjkwNUIF-LIffTk8mAtqzXnu" alt="Avatar" class="md-avatar rounded-circle">
 	  
         </div>
         
-        <h2 class="text-center">Admin Login</h2>   
+        <h2 class="text-center">User Login</h2>   
         <div class="form-group">
         	<input type="text" class="form-control" name="username" placeholder="Username" required="required">
         </div>
@@ -95,10 +97,11 @@ body {
             <button type="submit" class="btn btn-primary btn-lg btn-block" name="login" value="login">Sign in</button>
         </div>
 		<div class="clearfix">
-            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-            <a href="#" class="pull-right">Forgot Password?</a>
+            <a href="<?php echo base_url() ?>LoginController/change_pass" class="pull-left">Change Password?</a>
+            <a href="<?php echo base_url() ?>LoginController/reset" class="pull-right">Forgot Password?</a>
         </div>
     </form>
+    <p class="text-center small">Don't have an account? <a href="<?php echo base_url() ?>LoginController/sign_up" style="color:red">Sign up here!</a></p>
  
 </div>
 

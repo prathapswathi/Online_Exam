@@ -28,28 +28,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		color:yellow;
 		width:auto;
 	}
-	 #container {
-		margin: 100px;
+	#container {
+		margin: 90px;
 		
 	} 
 	#admin {
-		/* margin: 10px;
-		border: 1px solid blue; */
+		
 		float: right;
-	/*
-		margin:20px;
-		margin-left:70px;
-		background-color:skyblue; */
+	
 	}
 	 #user {
-		/* margin: 10px;
-		border: 1px solid blue; */
+		
 		float: right;
-/* 		
-		background-color:skyblue;
-		margin:20px; */
+
 	}
-	</style>
+
+@media screen and (max-width: 992px) {
+
+
+}
+</style> 
 </head>
 <body>
 
@@ -57,10 +55,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <center><h1>Welcome to Online Examination System</h1></center>
 
 <div id="admin">
-<a href="" id="bottle" ><img src="images/admin.png" alt="Welcome"></a>
+<a href="<?php echo base_url() ?>LoginController/admin_login" id="bottle" ><img src="images/admin.png" alt="Welcome"></a>
 </div>
 <div id="user">
-<a href="" id="bottle" ><img src="images/user.png" alt="Welcome"></a>
+<a href="<?php echo base_url() ?>LoginController/user_login" id="bottle" ><img src="images/user.png" alt="Welcome"></a>
 </div>
 
 </div>

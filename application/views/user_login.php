@@ -8,15 +8,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Login form</title>
 <style type="text/css">
-body {
-		background-repeat: no-repeat;
-		height: 500px;
-		background-position: center;
-		background-size: cover;
+body {	
+	
 		position: relative;
 		margin: 40px;
 		font: 20px/50px normal Helvetica, Arial, sans-serif;
-       
 	}
 #image{
     float:left;
@@ -80,7 +76,7 @@ body {
 
 <div class="login-form">
 
-    <form action="" method="post">
+    <form action="<?php echo base_url() ?>LoginController/user_login_validation" method="post">
 		<div class="avatar" style="background-color:white;border:1px solid gray" >
 		<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS6LGw3x8zaTK0TNxRX4VeSFhJgbjkwNUIF-LIffTk8mAtqzXnu" alt="Avatar" class="md-avatar rounded-circle">
 	  
@@ -96,6 +92,7 @@ body {
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg btn-block" name="login" value="login">Sign in</button>
         </div>
+        <div style="color:red"> <?php echo $this->session->flashdata("error");?></div>
 		<div class="clearfix">
             <a href="<?php echo base_url() ?>LoginController/change_pass" class="pull-left">Change Password?</a>
             <a href="<?php echo base_url() ?>LoginController/reset" class="pull-right">Forgot Password?</a>

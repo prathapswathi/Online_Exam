@@ -1,13 +1,10 @@
 <head>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 
-/* .pass-image, .move {
-    display: inline-block;
-    vertical-align: top;
-} */
 .pass_show{position: relative} 
 
 .pass_show .ptxt { 
@@ -45,6 +42,7 @@ transition: .3s ease all;
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
         padding: 30px;
         border:1px solid gray;
+        margin-top:20px;
     }
   
 </style>
@@ -70,14 +68,14 @@ $(this).prev().attr('type', function(index, attr){return attr == 'password' ? 't
 	<div class="row">
 		<div class="col-sm-4">
 		    <form action="" method="post">
-            <div class="float">
-            <div class="pass-image">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTY1cbCEtZg8H-hNWBYohJ8m7Kq-AJJz-c6TLGQIVW0p2HsycVJ" alt="Image" class="rounded mx-auto d-block">
+            
+            <div class="text-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTY1cbCEtZg8H-hNWBYohJ8m7Kq-AJJz-c6TLGQIVW0p2HsycVJ" alt="Image" class="img-fluid">
             </div>
             <div class="move">
-		    <label>Current Password</label>
+		    <label>Old Password</label>
 		    <div class="form-group pass_show"> 
-                <input type="password" class="form-control" placeholder="Current Password"> 
+                <input type="password" class="form-control" placeholder="Old Password"> 
             </div> 
 		       <label>New Password</label>
             <div class="form-group pass_show"> 
@@ -85,10 +83,10 @@ $(this).prev().attr('type', function(index, attr){return attr == 'password' ? 't
             </div> 
 		       <label>Confirm Password</label>
             <div class="form-group pass_show"> 
-                <input type="password" class="form-control" placeholder="Confirm Password"> 
+                <input type="password" class="form-control" placeholder="ReEnter">
             </div>
-            </div> 
-</div>
+            
+        </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg btn-block" name="login" value="login">Change Password</button>
         </div>

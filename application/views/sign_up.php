@@ -8,13 +8,16 @@
 <title>Registration Form</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 <style type="text/css">
 	body{
 		color: #fff;
 		background: #63738a;
 		font-family: 'Roboto', sans-serif;
+	}
+	.signup-form{
+		width: 400px;
+		margin: 0 auto;
+		padding: 30px 0;
 	}
     .form-control{
 		height: 40px;
@@ -27,11 +30,7 @@
     .form-control, .btn{        
         border-radius: 3px;
     }
-	.signup-form{
-		width: 400px;
-		margin: 0 auto;
-		padding: 30px 0;
-	}
+	
 	.signup-form h2{
 		color: #636363;
         margin: 0 0 15px;
@@ -103,7 +102,7 @@
 <body>
 <center><h1>Online Examination System</h1></center>
 <div class="signup-form">
-    <form action="" method="post">
+    <form action="<?php echo base_url() ?>LoginController/register" method="post">
 		<h2>Register</h2>
 		<p class="hint-text">Create your account. It's free and only takes a minute.</p>
         <div class="form-group">
@@ -113,7 +112,7 @@
 			</div>        	
         </div>
         <div class="form-group">
-        	<input type="email" class="form-control" name="username" placeholder="Email" required="required">
+        	<input type="email" class="form-control" name="email" placeholder="username" required="required">
         </div>
 		<div class="form-group">
             <input type="password" class="form-control" name="password" placeholder="Password" required="required">
@@ -127,6 +126,7 @@
 		<div class="form-group">
             <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
         </div>
+		<div style="color:red"> <?php echo $this->session->flashdata("error");?></div>
     </form>
 	<div class="text-center">Already have an account? <a href="<?php echo base_url() ?>LoginController/user_login">Sign in</a></div>
     

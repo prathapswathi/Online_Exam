@@ -4,11 +4,25 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="/Online_Exam/css/admin.css"/>
+
 </head>
 <body>
 <div class="container">
-Welcome Admin
-<div>
+<div class="row">
+<div class="col-sm">
+<img src="https://www.donegaldaily.com/wp-content/uploads/2016/06/Receptionist.jpg" alt="admin" class="img-rounded" >
+</div>
+<div class="col-sm">
+<br><p>Name:Admin</p>
+<p>Company:Impelsys</p>
+<p>Email:Admin@impelsys.com</p>
+<p>Last Active:</p>
+
+<a href="<?php echo base_url() ?>AdminController/dashbord"><input type="button" class="btn btn-primary" value="Back" ></a>
+</div>
+<div class="col-sm">
+    <br><a href="<?php echo base_url() ?>LoginController/logout">logout</a>
+</div>
 </div>
 </div>
 </body>

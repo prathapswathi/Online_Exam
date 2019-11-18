@@ -20,8 +20,8 @@
 </div>
 <div class="row" id="side-bar">
 <ul>
-<a href="<?php echo base_url() ?>AdminController/profile"><li>Profile</li></a>
-<a href=""><li>Add Topics</li></a>
+<a id="profile" href="#profile" ><li>Profile</li></a>
+<a id="topic" href=""><li>Add Topics</li></a>
 <a href=""><li>Add Questions</li></a>
 <a href=""><li>Create Test</li></a>
 <a href=""><li>User Info</li></a>
@@ -29,15 +29,17 @@
 </ul>
 </div>
 <div class="row" id="data">
+<b><p class="ex1" style="padding-left:350px;font-size:40px;float:right;">Welcome Admin!!!</p></b>
+<br><p style="padding-left:260px;font-size:20px">This is Simple Admin Panel for Online Examination System </p>
 
 </div>
 </body>
 </html>
 <script>
-$("#side-bar a").click(function(e){
-    e.preventDefault();
-    $(".toggle").hide();
-    var toShow = $(this).attr('href');
-    $(toShow).show();
+$(document).ready(function(){
+  $("#profile").click(function(){$("#data").load("<?php echo base_url().'AdminController';?>")});
+//   $("#T1").click(function(){$("#posts").load("chapters/T1.php")});
+//   $("#Suba").click(function(){$("#posts").load("chapters/Suba.php")});
+//   $("#Subb").click(function(){$("#posts").load("chapters/Subb.php")});
 });
 </script>

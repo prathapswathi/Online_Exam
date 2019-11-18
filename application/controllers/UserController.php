@@ -9,7 +9,7 @@ class UserController extends CI_Controller{
     public function profile(){
         $this->load->view('user_profile');
     }
-    public function user_dashbord()
+    public function dashbord()
     {
         $this->load->view('user_dashboard');
     }

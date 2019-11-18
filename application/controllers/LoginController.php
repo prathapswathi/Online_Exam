@@ -51,10 +51,7 @@ class LoginController extends CI_Controller{
             $this->load->view('sign_up');	
         }
     }
-    public function admin_dashbord()
-    {
-        $this->load->view('admin_dashbord');
-    }
+    
 	public function reset(){
 		$this->load->view('forgot_password');
     }
@@ -72,11 +69,12 @@ class LoginController extends CI_Controller{
 
             $this->load->model('Login_Model');
             if($this->Login_Model->login($username,$password)){
+                ($this->Login_Model->update_time($username,$password));
                 $session_data=array(
                     'username'=>$username
                 );
                 $this->session->set_userdata($session_data);
-                redirect(base_url(). 'LoginController/admin_dashbord');
+                redirect(base_url(). 'AdminController/dashbord');
             }
             else{
                 $this->session->set_flashdata('error','invalid username and password');
@@ -99,11 +97,12 @@ class LoginController extends CI_Controller{
 
             $this->load->model('Login_Model');
             if($this->Login_Model->login($username,$password)){
+                ($this->Login_Model->update_time($username,$password));
                 $session_data=array(
                     'username'=>$username
                 );
                 $this->session->set_userdata($session_data);
-                redirect(base_url(). 'UserController/user_dashbord');
+                redirect(base_url(). 'UserController/dashbord');
             }
             else{
                 $this->session->set_flashdata('error','invalid username and password');

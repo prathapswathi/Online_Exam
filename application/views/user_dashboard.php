@@ -21,7 +21,7 @@
 </div>
 <div class="row" id="side-bar">
 <ul>
-<a href="<?php echo base_url() ?>AdminController/profile"><li>Profile</li></a>
+<a href="<?php echo base_url() ?>UserController/profile"><li>Profile</li></a>
 <a href=""><li>Browse Test</li></a>
 <a href=""><li>Attend Exam</li></a>
 <a href=""><li>Result</li></a>

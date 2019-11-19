@@ -56,6 +56,7 @@ function get_time()
 	$this->db->where('username',$username);
 	$this->db->from('login');
 	$query = $this->db->get(); 
+	
  }
 function __destruct() 
 {

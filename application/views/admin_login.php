@@ -78,7 +78,7 @@ body {
 
 <div class="login-form">
 
-    <form action="<?php echo base_url() ?>LoginController/admin_login_validation" method="post">
+    <form action="<?php echo base_url() ?>LoginController/login_validation" method="post">
 		<div class="avatar" style="background-color:white;border:1px solid gray" >
 		<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQZrwZDGrkr-jgVLE-Z8U3xPhL4MxOoiUPv3J1qTyOQUh5W5EGW" alt="Avatar">
 	  

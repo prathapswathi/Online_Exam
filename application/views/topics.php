@@ -7,7 +7,7 @@
     <a href='' class='btn btn-default pull-right' style='background-color:lightblue'>Create Product</a>
 </div>
 
-  <form method="post" action="<?php echo base_url() ?>AdminController/add_topics">
+  <form method="post" action="">
     <table class='table table-hover table-responsive table-bordered'>
         <tr style='background-color:green'>
             <th>Course Id</th>
@@ -15,10 +15,16 @@
             <th>Description</th>
             <th>Image</th>
         </tr>
- 
+        <?php 
+        $i=0; 
+         foreach ($h as $row)  
+         {  
+         ?>
         <tr>
-                <td></td>
-                <td></td>
+                <td><?php echo $row->course_id;?></td>
+                <td><?php echo $row->course_name;?></td>
+                <td><?php echo $row->description;?></td>
+                <td><?php echo $row->image;?></td>
                 <td>
                     
 				<a href='' class='btn btn-primary left-margin'>
@@ -38,10 +44,11 @@
                 </td>
  
             </tr>
- 
-        
- 
-    
+            <?php }  
+         ?>  
+            
+ </table>
+ <div style="color:red"> <?php echo $this->session->flashdata("error");?></div>
   </form>
 
  </body>

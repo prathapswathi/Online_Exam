@@ -27,11 +27,9 @@ class AdminController extends CI_Controller{
     public function get_topics()
     {
         $this->load->model('Admin_Model');
-        $result=$this->Admin_Model->all_topics();
-        if($result>0)
-        {
-            return hai;
-        }
+        $data['h']=$this->Admin_Model->topics();
+        $this->load->view('topics', $data);
+        
     }
     public function add_topics()
     {

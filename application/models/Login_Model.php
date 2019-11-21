@@ -9,14 +9,14 @@ Class Login_Model extends CI_Model {
     }
  
     public function login($username,$password) {
+		
 		$this->db->where('email',$username);
-		$this->db->where('password',$password);
-		//$this->db->set('last_sctivity','NOW()','FALSE');
-		//$this->db->where('last_activity',date('Y-m-d H:i:s'));
-
+	
+		
 		$query=$this->db->get('register');
 		if($query->num_rows() > 0)
 		{
+
 			$row = $query->row();
             $data = array(
 					'username' => $row->email,
@@ -46,14 +46,14 @@ Class Login_Model extends CI_Model {
 function update_time($username,$password)
 {
 	$this->db->set('last_activity','NOW()', FALSE);
-	$this->db->where('username',$username);
+	$this->db->where('email',$username);
 	$this->db->where('password',$password);
-	$this->db->update('login');
+	$this->db->update('register');
  }
 function get_time()
  {
 	$this->db->select('last_activity');
-	$this->db->where('username',$username);
+	$this->db->where('email',$username);
 	$this->db->from('login');
 	$query = $this->db->get(); 
 	

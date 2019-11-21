@@ -13,7 +13,11 @@ Class Login_Model extends CI_Model {
   }
   public function topics()
   {
-    $this->db->select('*');
+    $this->db->select('course_id');
+    $this->db->select('course_name');
+    $this->db->select('description');
+    $this->db->select('image');
+
 	  $this->db->from('topics');
     $query = $this->db->get(); 
     return $query;

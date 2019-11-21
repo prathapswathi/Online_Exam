@@ -44,8 +44,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	}
 
 @media screen and (max-width: 992px) {
-
-
 }
 </style> 
 </head>
@@ -55,10 +53,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <center><h1>Welcome to Online Examination System</h1></center>
 
 <div id="admin">
-<a href="<?php echo base_url() ?>LoginController/admin_login" id="bottle" ><img src="images/admin.png" alt="Welcome"></a>
+<a href="<?php echo base_url() ?>LoginController/login" id="bottle" ><img src="images/admin.png" alt="Welcome"></a>
 </div>
 <div id="user">
-<a href="<?php echo base_url() ?>LoginController/user_login" id="bottle" ><img src="images/user.png" alt="Welcome"></a>
+<a href="<?php echo base_url() ?>LoginController/login" id="bottle" ><img src="images/user.png" alt="Welcome"></a>
 </div>
 
 </div>

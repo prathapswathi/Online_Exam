@@ -1,38 +1,39 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <center><h1 style="color:blue">Online Examination System</h1></center>
-<div class="container">
-    <div class="row">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="text-center">
-                          <h3><i class="fa fa-lock fa-4x"></i></h3>
-                          <h2 class="text-center">Forgot Password?</h2>
-                          <p>You can reset your password here.</p>
-                            <div class="panel-body">
-                              
-                              <form class="form">
-                                <fieldset>
-                                  <div class="form-group">
-                                    <div class="input-group">
-                                      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                      
-                                      <input id="emailInput" placeholder="email address" class="form-control" type="email" oninvalid="setCustomValidity('Please enter a valid email address!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <input class="btn btn-lg btn-primary btn-block" value="Send My Password" type="submit">
-                                  </div>
-                                </fieldset>
-                              </form>
-                              
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+  <h1>Online Examination System</h1>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
+
+      <form action="<?php echo base_url() ?>LoginController/recover" method="post">
+        <div class="input-group mb-3">
+          <input type="email" name="email" class="form-control" placeholder="Email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
             </div>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">Request new password</button>
+          </div>
+          <div style="color:red"> <?php echo $this->session->flashdata("error");?>
+          <?php echo validation_errors(); ?></div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <p class="mt-3 mb-1">
+        <a href="<?php echo base_url() ?>LoginController/login">Login</a>
+      </p>
+      <p class="mb-0">
+        <a href="<?php echo base_url() ?>LoginController/register" class="text-center">Register a new membership</a>
+      </p>
     </div>
+    <!-- /.login-card-body -->
+  </div>
 </div>

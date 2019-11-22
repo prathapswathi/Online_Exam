@@ -64,13 +64,7 @@ class LoginController extends CI_Controller{
             $this->load->view('footer');
         }
     }
-    public function is_password_strong($password)
-    {
-       if (preg_match('#[0-9]#', $password) && preg_match('#[a-zA-Z]#', $password)) {
-         return TRUE;
-       }
-       return FALSE;
-    }
+   
 	
     public function login_validation(){
         $this->load->library('form_validation');
@@ -80,7 +74,7 @@ class LoginController extends CI_Controller{
         {
             $username=$this->input->post('username');
             $password=$this->input->post('password');
-            $password=$this->valid_password($password);
+            // $password=$this->valid_password($password);
             $hpass = password_hash($password,PASSWORD_DEFAULT);
 
             $this->load->model('Login_Model');
@@ -109,8 +103,58 @@ class LoginController extends CI_Controller{
             $this->load->view('footer');
         }
     }
-    
-  
+    public function ForgotPassword()
+    {
+        $email = $this->input->post('email');
+        $this->load->model('Login_Model');
+        $findemail = $this->Login_Model->ForgotPassword($email);
+        $new_email= $this->session->set_userdata('email');
+        $data['email']=$new_email;
+        if ($findemail) {
+            // $this->MY_model->sendpassword($findemail);
+            redirect(base_url() . 'LoginController/recover',$data);
+        } else {
+            echo "<script>alert(' $email not found, please enter correct email id')</script>";
+            redirect(base_url() . 'LoginController/reset', 'refresh');
+        }
+    }
+    public function new_password()
+    {
+        $this->load->library('session');
+        $this->load->model('Login_Model');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('password','Password','trim|required|min_length[6]|max_length[25]|callback_is_password_strong');
+        $this->form_validation->set_message('is_password_strong', 'password is weak!!!');
+        $this->form_validation->set_rules('cpassword','Confirm Password','required|matches[password]');
+        if($this->form_validation->run())
+        {
+        $password= $this->input->post('password');
+        $cpassword=$this->input->post('cpassword');
+        $email=$email_new;
+      
+        if($this->Login_Model->new_password($email,$password)){
+            echo "<script>alert(' Successfully changed the password')</script>";
+            redirect(base_url(). 'LoginController/login');
+        }
+        else{
+            echo "<script>alert('Unable to change the password')</script>";
+            redirect(base_url(). 'LoginController/login');
+        }
+        }
+        else{
+            $this->load->view('header');
+            $this->load->view('change_password');	
+            $this->load->view('footer');
+        }
+
+    }
+    public function is_password_strong($password)
+    {
+       if (preg_match('#[0-9]#', $password) && preg_match('#[a-zA-Z]#', $password)) {
+         return TRUE;
+       }
+       return FALSE;
+    }
     function logout()
     {
         $this->session->unset_userdata('username');

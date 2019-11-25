@@ -1,13 +1,13 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <h1>Online examination system</h1>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
-    <?php $email_new=$data['email']?>
+   
       <form action="<?php echo base_url() ?>LoginController/new_password".$email_new; method="post">
         <div class="input-group mb-3">
           <input type="password" name="password" class="form-control" placeholder="Password">

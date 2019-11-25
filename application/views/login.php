@@ -11,9 +11,10 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="<?php echo base_url() ?>LoginController/login_validation" method="post">
+      <!-- <form id="login" action="<?php echo base_url() ?>LoginController/login_validation" method="post"> -->
+      <form id="login" method="post" action="<?php echo base_url() ?>LoginController/login_validation">
         <div class="input-group mb-3">
-          <input type="email" name="username" class="form-control" placeholder="Email">
+          <input type="email" id="uname" name="username" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -21,7 +22,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input type="password" id="pass" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

@@ -11,12 +11,10 @@ Class Login_Model extends CI_Model {
     public function login($username,$password) {
 		
 		$this->db->where('email',$username);
-	
-		
+		$this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
 		$query=$this->db->get('register');
 		if($query->num_rows() > 0)
 		{
-
 			$row = $query->row();
             $data = array(
 					'username' => $row->email,
@@ -46,18 +44,23 @@ Class Login_Model extends CI_Model {
     $this->db->from('register');
     $this->db->where('email', $email);
     $query=$this->db->get();
-	return $query->row_array();
+	if( $query->num_rows()>0)
+	{
+	$row = $query->row();
 	$data = array(
-		'email' => $row->email,
-		'user_type' => $row->user_type
-		);
+		'email' => $row->email
+	);
 	$this->session->set_userdata($data);
+	return true;
+	}
+	else
+	{
+		return false;
+	}
  }
- function new_password($password,$email){
-	// $email="sujnan@impelsys.com";
-	$this->db->set('password',$password);
-	$this->db->where('email',$email);
-	// $this->db->where('password',$password);
+ function new_password($hpassword){
+	$this->db->set('password',$hpassword);
+	$this->db->where('email',$this->session->userdata('email'));
 	$this->db->update('register');
 	return true;
  }
@@ -65,7 +68,7 @@ function update_time($username,$password)
 {
 	$this->db->set('last_activity','NOW()', FALSE);
 	$this->db->where('email',$username);
-	$this->db->where('password',$password);
+	$this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
 	$this->db->update('register');
  }
 function get_time()

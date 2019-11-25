@@ -72,15 +72,15 @@ class LoginController extends CI_Controller{
         $this->form_validation->set_rules('password','Password','required');
         if($this->form_validation->run())
         {
+
+            
             $username=$this->input->post('username');
             $password=$this->input->post('password');
-            // $password=$this->valid_password($password);
-            $hpass = password_hash($password,PASSWORD_DEFAULT);
 
             $this->load->model('Login_Model');
             if($this->Login_Model->login($username,$password)){
                 $user_type= $this->session->userdata('user_type');
-                $this->Login_Model->update_time($username,$hpass);
+                $this->Login_Model->update_time($username,$password);
             
                 if($user_type=='admin')
                 {
@@ -108,11 +108,9 @@ class LoginController extends CI_Controller{
         $email = $this->input->post('email');
         $this->load->model('Login_Model');
         $findemail = $this->Login_Model->ForgotPassword($email);
-        $new_email= $this->session->set_userdata('email');
-        $data['email']=$new_email;
         if ($findemail) {
-            // $this->MY_model->sendpassword($findemail);
-            redirect(base_url() . 'LoginController/recover',$data);
+          
+            redirect(base_url() . 'LoginController/recover');
         } else {
             echo "<script>alert(' $email not found, please enter correct email id')</script>";
             redirect(base_url() . 'LoginController/reset', 'refresh');
@@ -130,9 +128,9 @@ class LoginController extends CI_Controller{
         {
         $password= $this->input->post('password');
         $cpassword=$this->input->post('cpassword');
-        $email=$email_new;
+        $hpassword = password_hash($password,PASSWORD_DEFAULT);
       
-        if($this->Login_Model->new_password($email,$password)){
+        if($this->Login_Model->new_password($hpassword)){
             echo "<script>alert(' Successfully changed the password')</script>";
             redirect(base_url(). 'LoginController/login');
         }
@@ -161,5 +159,4 @@ class LoginController extends CI_Controller{
         redirect(base_url(). '');	
     }
     
-
 }

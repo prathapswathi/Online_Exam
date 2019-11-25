@@ -8,8 +8,9 @@ Class Login_Model extends CI_Model {
         $this->load->database();
     }
  
-    public function login($username,$password) {
-		
+    public function login($data) {
+		$username=$data['username'];
+		$password=$data['password'];
 		$this->db->where('email',$username);
 		$this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
 		$query=$this->db->get('register');

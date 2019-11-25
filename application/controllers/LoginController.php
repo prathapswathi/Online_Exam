@@ -1,10 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class LoginController extends CI_Controller{
-
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('cookie'); 
+    }
    
     public function index(){
         $this->load->view('home');
+      
     }
     function login(){
         $this->load->view('header');
@@ -37,6 +42,7 @@ class LoginController extends CI_Controller{
         $this->form_validation->set_message('is_password_strong', 'password is weak!!!');
         $this->form_validation->set_rules('cpassword','Confirm Password','required|matches[password]');
         $this->form_validation->set_rules('utype','User Type','trim|required');
+        $this->form_validation->set_rules('terms','TOS','trim|required'); 
 
         if($this->form_validation->run())
         {
@@ -58,7 +64,7 @@ class LoginController extends CI_Controller{
             
         }
         else{
-            $this->session->set_flashdata('error','Unable to register');
+
             $this->load->view('header');
             $this->load->view('register');	
             $this->load->view('footer');
@@ -72,23 +78,33 @@ class LoginController extends CI_Controller{
         $this->form_validation->set_rules('password','Password','required');
         if($this->form_validation->run())
         {
-
+            $data=array(
+            $username=$this->input->post('username'),
+            $password=$this->input->post('password')
+            );
             
-            $username=$this->input->post('username');
-            $password=$this->input->post('password');
 
-            $this->load->model('Login_Model');
-            if($this->Login_Model->login($username,$password)){
+           $this->load->model('Login_Model');
+           $login= $this->Login_Model->login($data);
+            if($login){
+                if ($this->input->post("chkremember"))
+                {
+                    $this->input->set_cookie('username', $username, 86500); 
+                    $this->input->set_cookie('password', $password, 86500); 
+                }
+               
                 $user_type= $this->session->userdata('user_type');
                 $this->Login_Model->update_time($username,$password);
             
                 if($user_type=='admin')
                 {
                 redirect(base_url(). 'AdminController/dashbord');
+                     echo json_encode(['success'=>'loged in successfully.']);
                 }
                 if($user_type == 'user')
                 {
-                    redirect(base_url(). 'UserController/dashbord');  
+                    redirect(base_url(). 'UserController/dashbord'); 
+                     echo json_encode(['success'=>'user loged in successfully.']); 
                 }
             }
             else{
@@ -101,8 +117,11 @@ class LoginController extends CI_Controller{
             $this->load->view('header');
             $this->load->view('login');	
             $this->load->view('footer');
+               $errors = validation_errors();
+               echo json_encode(['error'=>$errors]);
         }
     }
+   
     public function ForgotPassword()
     {
         $email = $this->input->post('email');
@@ -153,10 +172,11 @@ class LoginController extends CI_Controller{
        }
        return FALSE;
     }
+
     function logout()
     {
         $this->session->unset_userdata('username');
         redirect(base_url(). '');	
     }
-    
+      
 }

@@ -12,27 +12,28 @@
       <p class="login-box-msg">Sign in to start your session</p>
 
       <!-- <form id="login" action="<?php echo base_url() ?>LoginController/login_validation" method="post"> -->
-      <form id="login" method="post" action="<?php echo base_url() ?>LoginController/login_validation">
-        <div class="input-group mb-3">
-          <input type="email" id="uname" name="username" class="form-control" placeholder="Email">
+      <form id="login" name="login" method="post" action="<?php echo base_url() ?>LoginController/login_validation">
+        <div class="input-group mb-3" >
+          <input type="email" id="uname" name="username" class="form-control" placeholder="Email" value="<?php if (get_cookie('username')) { echo get_cookie('username'); } ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" id="pass" name="password" class="form-control" placeholder="Password">
+        <div class="input-group mb-3" id="show_hide_password">
+          <input type="password" id="pass" name="password" class="form-control" placeholder="Password" value="<?php if (get_cookie('password')) { echo get_cookie('username'); } ?>">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+              <!-- <span class="fas fa-lock"></span> -->
+              <a href=""><i class="fa fa-eye-slash" aria-hidden="false"></i></a>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input type="checkbox" name="chkremember" id="remember" value="Remember me" <?php if (get_cookie('uemail')) { ?> checked="checked" <?php } ?>>
               <label for="remember">
                 Remember Me
               </label>
@@ -44,7 +45,9 @@
           </div>
           <div style="color:red"> <?php echo $this->session->flashdata("error");
           ?>
-          <?php echo validation_errors(); ?></div>
+          <?php echo validation_errors(); ?>
+          
+          </div>
           <!-- /.col -->
         </div>
       </form>

@@ -12,7 +12,7 @@
 
       <form action="<?php echo base_url() ?>LoginController/register" method="post">
         <div class="input-group mb-3">
-          <input type="text" name="firstname" class="form-control" placeholder="First name">
+          <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -35,11 +35,11 @@
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" id="show_hide_password">
           <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+            <a href=""><i class="fa fa-eye-slash" aria-hidden="false"></i></a>
             </div>
           </div>
         </div>

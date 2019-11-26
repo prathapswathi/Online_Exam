@@ -3,20 +3,25 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 </head>
 <body>
-<div class='right-button-margin'>
-    <a href='' class='btn btn-default pull-right' style='background-color:lightblue'>Create Product</a>
-</div>
+
 
   <form method="post" action="">
-    <table class='table table-hover table-responsive table-bordered'>
-        <tr style='background-color:green'>
+    
+       
+        <?php 
+        if(!empty($h)){
+            ?>
+            <div class='right-button-margin'>
+            <a href='' class='btn btn-default pull-right' style='background-color:lightblue'>Create Product</a>
+            </div>
+            <table class='table table-hover table-responsive table-bordered'>
+             <tr style='background-color:green'>
             <th>Course Id</th>
             <th>Course Name</th>
             <th>Description</th>
             <th>Image</th>
         </tr>
-        <?php 
-        $i=0; 
+        <?php
          foreach ($h as $row)  
          {  
          ?>
@@ -45,8 +50,13 @@
  
             </tr>
             <?php }  
-         ?>  
-            
+        }
+        else
+       { 
+         ?> 
+          
+ <div style="color:red"> No data found </div>
+       <?php } ?>     
  </table>
  <div style="color:red"> <?php echo $this->session->flashdata("error");?></div>
   </form>

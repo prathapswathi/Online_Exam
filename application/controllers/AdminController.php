@@ -11,7 +11,14 @@ class AdminController extends CI_Controller{
         $this->load->view('admin_dashbord');
     }
     public function profile(){
-        $this->load->view('admin_profile');
+        $this->load->library('session');
+        $last_activity= $this->session->userdata('last_activity');
+
+        $data=array(
+            'username'=> $this->session->userdata('username'),
+            'active'=>$last_activity,   
+        );
+        $this->load->view('admin_profile',$data);
     }
     public function last_active(){
         $this->load->model('Login_Model');
@@ -22,15 +29,17 @@ class AdminController extends CI_Controller{
     }
     public function topics()
     {
-        $this->load->view('topics');
+       $this->load->model('Admin_Model');
+         $data['h']=$this->Admin_Model->topics();    
+        $this->load->view('topics',$data);
     }
-    public function get_topics()
-    {
-        $this->load->model('Admin_Model');
-        $data['h']=$this->Admin_Model->topics();
-        $this->load->view('topics', $data);
+    // public function get_topics()
+    // {
+    //     $this->load->model('Admin_Model');
+    //     $data['h']=$this->Admin_Model->topics();
+    //     $this->load->view('topics', $data);
         
-    }
+    // }
     public function add_topics()
     {
         

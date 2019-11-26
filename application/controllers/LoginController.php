@@ -8,9 +8,13 @@ class LoginController extends CI_Controller{
     }
    
     public function index(){
-        $this->load->view('home');
+        $this->load->view('header');
+        $this->load->view('login');
+        $this->load->view('footer');
       
     }
+ 
+
     function login(){
         $this->load->view('header');
         $this->load->view('login');	
@@ -80,9 +84,8 @@ class LoginController extends CI_Controller{
         {
             $data=array(
             'email' => $this->input->post('username'),
-            'password' => password_verify($this->input->post('password'),PASSWORD_BCRYPT),
-           
-            );
+            'password' => password_verify($this->input->post('password'),PASSWORD_BCRYPT),);
+     
            $sess_password=$this->input->post('password');
            $this->load->model('Login_Model');
            $login= $this->Login_Model->login($data);
@@ -96,7 +99,7 @@ class LoginController extends CI_Controller{
                 }
                
                 $user_type= $this->session->userdata('user_type');
-                 $this->Login_Model->update_time($data);
+                $this->Login_Model->update_time($data);
             
                 if($user_type=='admin')
                 {
@@ -169,7 +172,7 @@ class LoginController extends CI_Controller{
     }
     public function is_password_strong($password)
     {
-       if (preg_match('#[0-9]#', $password) && preg_match('#[a-zA-Z]#', $password)) {
+       if (preg_match('#[0-9]#', $password) && preg_match('#[a-zA-Z]#', $password) && preg_match('#[^a-zA-Z\d]#',$password)) {
          return TRUE;
        }
        return FALSE;

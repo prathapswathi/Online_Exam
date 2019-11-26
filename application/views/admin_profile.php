@@ -15,8 +15,8 @@
 <div class="col-sm">
 <br><p>Name:Admin</p>
 <p>Company:Impelsys</p>
-<p>Email:Admin@impelsys.com</p>
-<p>Last Active:</p>
+<p>Email:<?php echo $username ?></p>
+<p>Last Active:<?php echo $active ?></p>
 
 
 </div>

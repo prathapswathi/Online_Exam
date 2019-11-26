@@ -1,11 +1,18 @@
 
-<body class="login-page" style="min-height: 512.8px;" >
+<body class="login-page" style="min-height: 512.8px;
+background-image: url('http://4liberty.eu/wp-content/uploads/2016/08/8314929977_4d7e817d68_h-1125x749.jpg');
+		background-repeat: no-repeat;
+		/* height: 500px; */
+		background-position: center;
+		background-size: cover;
+		position: relative;
+" >
 
-
+ <center> <h1 style="color:yellow">Welcome to Online Examination System</h1></center>
 <div class="login-box">
-  <div class="login-logo">
-    <h1>Online Examination System</h1>
-  </div>
+  <!-- <div class="login-logo">
+  
+  </div> -->
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">

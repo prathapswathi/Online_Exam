@@ -21,7 +21,8 @@ Class Login_Model extends CI_Model {
             $data = array(
 					'username' => $row->email,
 					'password' => $row->password,
-                    'user_type' => $row->user_type
+					'user_type' => $row->user_type,
+					'last_activity'=>$row->last_activity
                     );
             $this->session->set_userdata($data);
 			return true;
@@ -68,19 +69,14 @@ Class Login_Model extends CI_Model {
  }
 function update_time($data)
 {
+	$username=$data['email'];
+	$password=$data['password'];
 	$this->db->set('last_activity','NOW()', FALSE);
-	// $this->db->where('email',$username);
-	// $this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
-	$this->db->update('register',$data,'last_activity=NOW()');
- }
-function get_time()
- {
-	$this->db->select('last_activity');
 	$this->db->where('email',$username);
-	$this->db->from('login');
-	$query = $this->db->get(); 
-	
+	$this->db->where('password',$password);
+	$this->db->update('register');
  }
+
 function __destruct() 
 {
     $this->db->close();

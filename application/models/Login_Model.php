@@ -9,11 +9,12 @@ Class Login_Model extends CI_Model {
     }
  
     public function login($data) {
-		$username=$data['username'];
-		$password=$data['password'];
-		$this->db->where('email',$username);
-		$this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
-		$query=$this->db->get('register');
+		// $username=$data['username'];
+		// $password=$data['password'];
+		// $this->db->where('email',$username);
+		// $this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
+		// $query=$this->db->get('register');
+		$query = $this->db->get_where('register', $data);
 		if($query->num_rows() > 0)
 		{
 			$row = $query->row();
@@ -65,12 +66,12 @@ Class Login_Model extends CI_Model {
 	$this->db->update('register');
 	return true;
  }
-function update_time($username,$password)
+function update_time($data)
 {
 	$this->db->set('last_activity','NOW()', FALSE);
-	$this->db->where('email',$username);
-	$this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
-	$this->db->update('register');
+	// $this->db->where('email',$username);
+	// $this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
+	$this->db->update('register',$data,'last_activity=NOW()');
  }
 function get_time()
  {

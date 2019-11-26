@@ -23,7 +23,6 @@
     });
 });
 </script>
-  
 
 
 
@@ -34,7 +33,10 @@
 
                 var u = $('#uname').val();
                 var p = $('#pass').val();
-
+                if (u == "" || p == "") {
+                $('#success-message').show().html('All Fields are required');
+                 } else {
+                $('#success-message').html("").hide();
                   $.ajax({
                       url : "http://localhost/Online_Exam/LoginController/login_validation", 
                       type : "POST",
@@ -44,15 +46,15 @@
                           password : p
                           },
                       success : function(data) {
-                          // do something, e.g. hide the login form or whatever
-                          alert('logged in');
+                        data = $.parseJSON(data); 
+                          alert('logged in successfully');
                       },
-                      error : function(data) {
-                    //    Redirect('LoginController/login');
-                          alert('unable to login');
+                      error : function() {
+                          alert('Something went wrong');
+                          window.location.href = http://localhost/Online_Exam/LoginController/login
                       }
                   });
-                  // stop the form from submitting the normal way and refreshing the page
+                 }
                   return false;
               });
             }); 

@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="input-group mb-3" id="show_hide_password">
-          <input type="password" id="pass" name="password" class="form-control" placeholder="Password" value="<?php if (get_cookie('password')) { echo get_cookie('username'); } ?>">
+          <input type="password" id="pass" name="password" class="form-control" placeholder="Password" value="<?php if (get_cookie('password')) { echo get_cookie('password'); } ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <!-- <span class="fas fa-lock"></span> -->
@@ -40,10 +40,10 @@
             </div>
           </div>
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col-4" >
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
-          <div style="color:red"> <?php echo $this->session->flashdata("error");
+          <div id="success-message" style="color:red"> <?php echo $this->session->flashdata("error");
           ?>
           <?php echo validation_errors(); ?>
           

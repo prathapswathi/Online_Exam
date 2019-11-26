@@ -76,52 +76,54 @@ class LoginController extends CI_Controller{
         $this->load->library('form_validation');
         $this->form_validation->set_rules('username','Username','required');
         $this->form_validation->set_rules('password','Password','required');
-        if($this->form_validation->run())
+        if($this->form_validation->run() == TRUE)
         {
             $data=array(
-            $username=$this->input->post('username'),
-            $password=$this->input->post('password')
+            'email' => $this->input->post('username'),
+            'password' => password_verify($this->input->post('password'),PASSWORD_BCRYPT),
+           
             );
-            
-
+           $sess_password=$this->input->post('password');
            $this->load->model('Login_Model');
            $login= $this->Login_Model->login($data);
             if($login){
                 if ($this->input->post("chkremember"))
                 {
-                    $this->input->set_cookie('username', $username, 86500); 
-                    $this->input->set_cookie('password', $password, 86500); 
+                    $username=$data['email'];
+                    $password=$sess_password;
+                    $this->input->set_cookie('username',$username , 86500); 
+                    $this->input->set_cookie('password',$password, 86500); 
                 }
                
                 $user_type= $this->session->userdata('user_type');
-                $this->Login_Model->update_time($username,$password);
+                 $this->Login_Model->update_time($data);
             
                 if($user_type=='admin')
                 {
                 redirect(base_url(). 'AdminController/dashbord');
-                     echo json_encode(['success'=>'loged in successfully.']);
+              
                 }
                 if($user_type == 'user')
                 {
                     redirect(base_url(). 'UserController/dashbord'); 
-                     echo json_encode(['success'=>'user loged in successfully.']); 
+                    
                 }
             }
             else{
                 $this->session->set_flashdata('error','invalid username and password');
                 redirect(base_url(). 'LoginController/login');
+               
             }
-            
+          
         }
         else{
             $this->load->view('header');
             $this->load->view('login');	
             $this->load->view('footer');
-               $errors = validation_errors();
-               echo json_encode(['error'=>$errors]);
+           
         }
     }
-   
+
     public function ForgotPassword()
     {
         $email = $this->input->post('email');

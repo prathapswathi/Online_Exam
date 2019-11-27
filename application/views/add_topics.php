@@ -14,7 +14,7 @@
 
 <div class="container">
 <input type="button" class='btn btn-default pull-right'  value="Add Topics">
-<form name="myform"  method="post" id="myform" action="<?php echo base_url() ?>AdminController/add_topics"> 
+<form name="myform" enctype="multipart/form-data" method="post" id="myform" action="<?php echo base_url() ?>AdminController/add_topics_action"> 
 <div class="form-group">
 <label for="id">Course id:</label>
         <span style="color:red"> *</span>
@@ -27,25 +27,30 @@
         <label for="name">  Course Name:</label>
         <span style="color:red"> *</span>
         
-        <input type='text' name='course' class='form-control' />
+        <input type='text' name='course_name' class='form-control' />
     
     </div>
     <div class="form-group">
 
-    <label for="branch">  Branch:</label>
+    <label for="desc">  Description:</label>
     <span style="color:red"> *</span>
     
-    <input type='text' name='branch' class='form-control' />
+    <input type='text' name='desc' class='form-control' />
    
     </div >
    
     <div class="form-group">
     
-    <label for="sem"> Semister:</label>
+    <label for="image"> Image:</label>
     <span style="color:red"> *</span>
     
-    <input type='text' name='sem' class='form-control' />
+    <input type="file" name="image" id="image" class='form-control' >
     </div >
+    <div id="success-message" style="color:red"> <?php echo $this->session->flashdata("error");
+          ?>
+          <?php echo validation_errors(); ?>
+          
+          </div>
      <button type="submit" class="btn btn-primary" >Create</button>
   
 </form>

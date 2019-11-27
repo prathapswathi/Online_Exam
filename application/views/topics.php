@@ -4,24 +4,22 @@
 </head>
 <body>
 
-
-  <form method="post" action="">
-    
-       
-        <?php 
-        if(!empty($h)){
-            ?>
-            <div class='right-button-margin'>
-            <a href='' class='btn btn-default pull-right' style='background-color:lightblue'>Create Product</a>
+<div class='right-button-margin'>
+            <a id="add_topics" href="#add_topics"  class='btn btn-default pull-right' style='background-color:lightblue'>Create Product</a>
             </div>
-            <table class='table table-hover table-responsive table-bordered'>
-             <tr style='background-color:green'>
+  <form method="post" action="">
+  <table class='table table-hover table-bordered' style="width: 100%;">
+            <tr style='background-color:green'>
             <th>Course Id</th>
             <th>Course Name</th>
             <th>Description</th>
             <th>Image</th>
+            <th>Modify</th>
         </tr>
-        <?php
+       
+        <?php 
+        if(!empty($h)){
+
          foreach ($h as $row)  
          {  
          ?>
@@ -29,9 +27,8 @@
                 <td><?php echo $row->course_id;?></td>
                 <td><?php echo $row->course_name;?></td>
                 <td><?php echo $row->description;?></td>
-                <td><?php echo $row->image;?></td>
-                <td>
-                    
+                <td><img style="width:110px;height:110px" alt="image" src="<?php echo base_url().'/images/'.$row->image?>" class="img-responsive"></td>
+                <td>    
 				<a href='' class='btn btn-primary left-margin'>
     			<span class='glyphicon glyphicon-list'></span> Read
 				</a>
@@ -40,22 +37,18 @@
     			<span class='glyphicon glyphicon-edit'></span> Edit
 				</a>
  
-				<a class='btn btn-danger delete-object'>
+				<a href='<?php echo base_url().'/AdminController/delete/'.$row->id?>' onclick="return confirm('Are you sure?')" class='btn btn-danger delete-object'>
     			<span class='glyphicon glyphicon-remove'></span> Delete
 				</a> 
-                
-    			
-               
                 </td>
- 
-            </tr>
+        </tr>
             <?php }  
         }
         else
        { 
          ?> 
-          
- <div style="color:red"> No data found </div>
+      <tr><td colspan='5'>   
+ <div style="color:red" class='alert alert-info'> Topics does not exists!!! Please add the topics </div></td></tr>
        <?php } ?>     
  </table>
  <div style="color:red"> <?php echo $this->session->flashdata("error");?></div>

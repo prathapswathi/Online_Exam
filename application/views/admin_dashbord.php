@@ -11,14 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- <link rel="stylesheet" type="text/css" href="/Online_Exam/css/admin.css"/> -->
-<script>
-$(document).ready(function(){
-  $("#profile").click(function(){$("#data").load("<?php echo base_url().'AdminController/profile';?>")});
-   $("#topics").click(function(){$("#data").load("<?php echo base_url().'AdminController/topics';?>")});
-//   $("#Suba").click(function(){$("#posts").load("chapters/Suba.php")});
-//   $("#Subb").click(function(){$("#posts").load("chapters/Subb.php")});
-});
-</script>
+
 <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -81,7 +74,7 @@ $(document).ready(function(){
     <div class="col-sm-2 sidenav">
       <p><a id="profile" href="#profile">Profile</a></p><hr>
       <p><a id="topics" href="#topics">Add Topics</a></p><hr>
-      <p><a href="#">Add Questions</a></p><hr>
+      <p><a id="add_questions" href="#add_questions">Add Questions</a></p><hr>
       <p><a href="#">Create Test</a></p><hr>
       <p><a href="#">User Info</a></p><hr>
       <p><a href="<?php echo base_url() ?>LoginController/logout">Logout</a></p><hr>
@@ -92,6 +85,7 @@ $(document).ready(function(){
       <p>This is Simple Admin Panel for Online Examination System </p>
       <hr>
     </div>
+    <div style="color:red"> <?php echo $this->session->flashdata("error");?></div>
   </div>
 </div>
 

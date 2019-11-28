@@ -51,8 +51,21 @@
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
+        <!-- <div class="input-group mb-3">
           <input type="text" name="utype" class="form-control" placeholder="User Type(Ex. user)">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div> -->
+        <div class="input-group mb-3">
+          <select name="utype" class="form-control" value="User Type(Ex. user)">
+                        <option value="">Select user type</option>
+                        <?php foreach($utype as $row):?>
+                        <option value="<?php echo $row->user_type;?>"><?php echo $row->user_type;?></option>
+                        <?php endforeach;?>
+                    </select>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>

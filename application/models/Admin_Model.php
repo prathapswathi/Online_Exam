@@ -22,7 +22,7 @@ Class Admin_Model extends CI_Model {
     $this->db->select('description');
     $this->db->select('image');
 	  $this->db->from('topics');
-    $query = $this->db->get()->result();; 
+    $query = $this->db->get()->result();
     return $query;
   }
   public function get($id)
@@ -31,12 +31,13 @@ Class Admin_Model extends CI_Model {
     $this->db->from('topics');
     $this->db->where('id',$id);
     $query = $this->db->get();
-    
-    return $query;
+    $row=$query->row();
+    $image=$row->image;
+    return $image;
 }
   public function delete($id,$image)
   {
-    unlink("images/".$image);
+    unlink("./images/".$image);
     $this->db->where('id', $id);
     $query=$this->db->delete('topics');
     return $query; 

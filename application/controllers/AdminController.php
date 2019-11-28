@@ -100,15 +100,15 @@ class AdminController extends CI_Controller{
     }
     public function delete($id)
     {
-        // $id=$row->id;
         $this->load->model('Admin_Model');
-      //  $image=$this->Admin_Model->get($id);
-	if($this->Admin_Model->delete($id)){
+      $image=$this->Admin_Model->get($id);
+    
+	if($this->Admin_Model->delete($id,$image)){
         $this->session->set_flashdata('error','Data deleted successfully');
         $this->load->view('topics');
     }
     else{
-        $this->session->set_flashdata('error','Unable to delete data');
+       
         $this->load->view('topics');
     }
     }

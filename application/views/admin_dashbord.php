@@ -17,6 +17,7 @@
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
+     height:100%;
     }
     .navbar-header {
     display: block;
@@ -47,6 +48,7 @@
       background-color: #555;
       color: white;
       padding: 15px;
+     
     }
     
     /* On small screens, set height to 'auto' for sidenav and grid */
@@ -60,7 +62,7 @@
   </style>
 </head>
 
-<body>
+<body >
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">

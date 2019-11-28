@@ -13,16 +13,16 @@ class LoginController extends CI_Controller{
         $this->load->view('footer');
       
     }
- 
-
-    function login(){
+  function login(){
         $this->load->view('header');
         $this->load->view('login');	
         $this->load->view('footer');
     }
 	public function sign_up(){
         $this->load->view('header');
-        $this->load->view('register');	
+        $this->load->model('Login_Model');
+        $data['utype']=$this->Login_Model->UserType(); 
+        $this->load->view('register',$data);	
         $this->load->view('footer');
     }
     public function reset(){
@@ -68,9 +68,10 @@ class LoginController extends CI_Controller{
             
         }
         else{
-
+            $this->load->model('Login_Model');
+            $data['utype']=$this->Login_Model->UserType(); 
             $this->load->view('header');
-            $this->load->view('register');	
+            $this->load->view('register',$data);	
             $this->load->view('footer');
         }
     }
@@ -84,7 +85,7 @@ class LoginController extends CI_Controller{
         {
             $data=array(
             'email' => $this->input->post('username'),
-            'password' => password_verify($this->input->post('password'),PASSWORD_BCRYPT),);
+            'password' => $this->input->post('password'));
      
            $sess_password=$this->input->post('password');
            $this->load->model('Login_Model');

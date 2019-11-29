@@ -86,6 +86,17 @@ function update_time($data)
 	$this->db->update('user');
  }
 
+ function make_session($username,$token) {
+	$this->db->set('token',$token);
+	$this->db->where('email',$username);
+	$this->db->update('user');
+	if($this->db->affected_rows() == 1){
+	return true;	
+	}else{
+		return false;
+	}
+}
+
 function __destruct() 
 {
     $this->db->close();

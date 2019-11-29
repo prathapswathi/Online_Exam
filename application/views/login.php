@@ -21,7 +21,7 @@ background-image: url('http://4liberty.eu/wp-content/uploads/2016/08/8314929977_
       <!-- <form id="login" action="<?php echo base_url() ?>LoginController/login_validation" method="post"> -->
       <form id="login" name="login" method="post" action="<?php echo base_url() ?>LoginController/login_validation">
         <div class="input-group mb-3" >
-          <input type="email" id="uname" name="username" class="form-control" placeholder="Email" value="<?php if (get_cookie('username')) { echo get_cookie('username'); } ?>">
+          <input type="email" id="uname" name="username" class="form-control" placeholder="Email" value="">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -29,7 +29,7 @@ background-image: url('http://4liberty.eu/wp-content/uploads/2016/08/8314929977_
           </div>
         </div>
         <div class="input-group mb-3" id="show_hide_password">
-          <input type="password" id="pass" name="password" class="form-control" placeholder="Password" value="<?php if (get_cookie('password')) { echo get_cookie('password'); } ?>">
+          <input type="password" id="pass" name="password" class="form-control" placeholder="Password" value="">
           <div class="input-group-append">
             <div class="input-group-text">
               <!-- <span class="fas fa-lock"></span> -->
@@ -40,7 +40,7 @@ background-image: url('http://4liberty.eu/wp-content/uploads/2016/08/8314929977_
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" name="chkremember" id="remember" value="Remember me" <?php if (get_cookie('uemail')) { ?> checked="checked" <?php } ?>>
+              <input type="checkbox" name="chkremember" id="remember" value="Remember me" >
               <label for="remember">
                 Remember Me
               </label>

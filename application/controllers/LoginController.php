@@ -26,6 +26,7 @@ class LoginController extends CI_Controller{
 
    
 public function login_validation(){
+    $validator = array('success' => false, 'messages' => array());
    $this->load->library('form_validation');
    if(isset($_COOKIE['token']))
    {
@@ -62,15 +63,25 @@ public function login_validation(){
                 $type= $this->session->userdata('user_type');
                 if($type == 'admin')
                 {
-               
+                //echo json_encode(['success' => true]);
+                
+				$validator['success'] = true;
+				$validator['messages'] = 'welcome admin';	
                 redirect(base_url(). 'AdminController/dashbord');
                 }
                 if($type == 'user')
                 {
+                    //echo json_encode(['success' => true]);
+                    $validator['success'] = true;
+				   $validator['messages'] = 'welcome user';
                     redirect(base_url(). 'UserController/dashbord');   
                 }
             }
             else{
+               // echo json_encode(['success' => false]);
+
+               $validator['success'] = false;
+				$validator['messages'] = 'invalid username and password';
                 $this->session->set_flashdata('error','invalid username and password');
                 redirect(base_url(). 'LoginController/login');
                
@@ -84,6 +95,8 @@ public function login_validation(){
            
         }
    }
+   echo json_encode($validator);
+   
 }
    
    
@@ -108,16 +121,19 @@ public function login_validation(){
             }
             else{
                 $this->session->set_flashdata('error','error type');
+                echo json_encode(['success' => false]);
                 redirect(base_url(). 'LoginController/login');
             }
             }
             else{
                 $this->session->set_flashdata('error','unable to get cookies data');
+                echo json_encode(['success' => false]);
                 redirect(base_url(). 'LoginController/login');
             }
         }
         else{
             $this->session->set_flashdata('error','invalid username and password');
+            echo json_encode(['success' => false]);
             redirect(base_url(). 'LoginController/login');
         }
        }
@@ -126,12 +142,12 @@ public function login_validation(){
             $type= $this->session->userdata('types');
             if($type == 'admin')
             {
-           
+                echo json_encode(['success' => true]);
             redirect(base_url(). 'AdminController/dashbord');
             }
             if($type == 'user')
             {
-               
+                echo json_encode(['success' => true]);
                 redirect(base_url(). 'UserController/dashbord');   
             }
             

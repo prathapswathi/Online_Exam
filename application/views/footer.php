@@ -45,13 +45,19 @@
                           username : u, 
                           password : p
                           },
-                      success : function(data) {
-                        data = $.parseJSON(data); 
-                          alert('logged in successfully');
+                      success : function($response) {
+                        if($response)
+                        {
+                            alert("Wrong Details");
+                        }
+                        if(response.messages == 'welcome admin')
+                        {
+                            http://localhost/Online_Exam/AdminController/dashbord
+                        }
                       },
-                      error : function() {
-                          alert('Something went wrong');
-                          window.location.href = http://localhost/Online_Exam/LoginController/login
+                      error : function(response) {
+                        alert('Something went wrong');
+                         
                       }
                   });
                  }

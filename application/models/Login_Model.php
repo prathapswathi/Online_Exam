@@ -33,6 +33,25 @@ Class Login_Model extends CI_Model {
 			return false;
 		}
 	}
+	public function	sess_login($data){
+		$username=$data['email'];
+		
+		$this->db->where('email',$username);
+		$query=$this->db->get('user');
+	   if($query->num_rows() > 0)
+	   {
+		
+		$row = $query->row();
+	    $data = array(
+		'types' => $row->user_type,
+	   );
+	   $this->session->set_userdata($data);
+		   return true;	  
+	   }
+	   else{
+		   return false;
+	   }
+	}
 function UserType()
 {
 	$this->db->distinct();
@@ -96,7 +115,28 @@ function update_time($data)
 		return false;
 	}
 }
-
+ function getSession($token){
+	$this->db->select('email');
+	$this->db->select('password');
+	$this->db->select('user_type');
+    $this->db->from('user');
+    $this->db->where('token',$token);
+    $query=$this->db->get();
+	if( $query->num_rows()>0)
+	{
+	$row = $query->row();
+	$data = array(
+		'sess_user' => $row->email,
+		'sess_password' => $row->password,
+	);
+	$this->session->set_userdata($data);
+	return true;
+	}
+	else
+	{
+		return false;
+	}
+ }
 function __destruct() 
 {
     $this->db->close();

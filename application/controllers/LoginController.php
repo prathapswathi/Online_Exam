@@ -27,10 +27,11 @@ class LoginController extends CI_Controller{
    
 public function login_validation(){
    $this->load->library('form_validation');
-   if($_COOKIE['token'])
+   if(isset($_COOKIE['token']))
    {
      $this->token();
    }
+
    else{
         $this->form_validation->set_rules('username','Username','required');
         $this->form_validation->set_rules('password','Password','required');
@@ -45,18 +46,29 @@ public function login_validation(){
           
            $login= $this->Login_Model->login($data);
             if($login){
+                
                 if ($this->input->post("chkremember"))
                 {
                     $username=$data['email'];
                     $password=$sess_password;
                     $str=rand(); 
                     $token =md5($str);
-                    $this->input->set_cookie('token',$token);$this->session->set_userdata('token',$token);
+                   $this->session->set_userdata('token',$token);
+                    $this->input->set_cookie('token',$token,time()+ 360);
                     if($remember=$this->Login_Model->make_session($username,$token));
                     else
                     alert("unable to set cookies");
                 } 
-                $this->user_type();
+                $type= $this->session->userdata('user_type');
+                if($type == 'admin')
+                {
+               
+                redirect(base_url(). 'AdminController/dashbord');
+                }
+                if($type == 'user')
+                {
+                    redirect(base_url(). 'UserController/dashbord');   
+                }
             }
             else{
                 $this->session->set_flashdata('error','invalid username and password');
@@ -75,16 +87,7 @@ public function login_validation(){
 }
    
    
-    function logout()
-    {
-        $this->session->unset_userdata('username');
-        redirect(base_url(). '');	
-        $this->session->unset_userdata('token');
-        redirect(base_url(). '');	
-       
-        delete_cookie($_COOKIE['token']);
-
-    }
+   
       
     public function token(){
         if($_COOKIE['token'] == $_SESSION['token'])
@@ -92,24 +95,58 @@ public function login_validation(){
             $token=$_COOKIE['token'];
             $this->load->model('Login_Model');
             $remember=$this->Login_Model->getSession($token);
-            if($remember)
+            if($remember){
+            $username= $this->session->userdata('sess_user');
+            $password= $this->session->userdata('sess_password');
+            $password=password_hash($password,PASSWORD_DEFAULT);
+            $data=array(
+                'email' => $username);
+            $login=$this->Login_Model->sess_login($data);
+            if($login)
             {
                $this->user_type();
             }
+            else{
+                $this->session->set_flashdata('error','error type');
+                redirect(base_url(). 'LoginController/login');
+            }
+            }
+            else{
+                $this->session->set_flashdata('error','unable to get cookies data');
+                redirect(base_url(). 'LoginController/login');
+            }
+        }
+        else{
+            $this->session->set_flashdata('error','invalid username and password');
+            redirect(base_url(). 'LoginController/login');
         }
        }
         public function user_type()
         {
-            $user_type= $this->session->userdata('user_type');
-            if($user_type=='admin')
+            $type= $this->session->userdata('types');
+            if($type == 'admin')
             {
+           
             redirect(base_url(). 'AdminController/dashbord');
-      
             }
-            if($user_type == 'user')
+            if($type == 'user')
             {
-                redirect(base_url(). 'UserController/dashbord'); 
-                
+               
+                redirect(base_url(). 'UserController/dashbord');   
             }
+            
+        }
+        function logout()
+        {
+         
+            $this->load->helper('cookie');
+            delete_cookie("token");
+            $this->session->unset_userdata('username');
+            $this->session->unset_userdata('token');
+            $this->session->unset_userdata('user_type');
+            $this->session->unset_userdata('types');
+            redirect(base_url(). '');	
+            
+    
         }
 }

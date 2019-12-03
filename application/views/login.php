@@ -40,7 +40,7 @@ background-image: url('http://4liberty.eu/wp-content/uploads/2016/08/8314929977_
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" name="chkremember" id="remember" value="Remember me" >
+              <input type="checkbox" name="chkremember" id="remember" value="Remember me" <?php if (get_cookie('token')) { ?> checked="checked" <?php } ?> >
               <label for="remember">
                 Remember Me
               </label>

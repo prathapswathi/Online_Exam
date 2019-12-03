@@ -66,7 +66,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-    <a href="<?php echo base_url() ?>AdminController/dashbord"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQeKWZufcuUnVBTEkA8Tl8-Uth6AYWZ_jTy4U3AuXGfq5J2h6Zw" class="img-circle" alt="admin_logo" id="admin-logo"></a>
+    <a href="<?php echo base_url() ?>LoginController/login"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQeKWZufcuUnVBTEkA8Tl8-Uth6AYWZ_jTy4U3AuXGfq5J2h6Zw" class="img-circle" alt="admin_logo" id="admin-logo"></a>
      
     </div>
   </div>
@@ -95,4 +95,5 @@
   <p>Online Examination System</p>
 </footer>
 </body>
+
 </html>

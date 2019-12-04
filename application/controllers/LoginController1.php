@@ -215,7 +215,7 @@ class LoginController extends CI_Controller{
        }
        return FALSE;
     }
-
+    
     function logout()
     {
         $this->session->unset_userdata('username');

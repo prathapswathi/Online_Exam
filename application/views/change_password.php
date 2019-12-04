@@ -36,7 +36,7 @@
       </form>
 
       <p class="mt-3 mb-1">
-        <a href="<?php echo base_url() ?>LoginController/login_validation">Login</a>
+        <a href="<?php echo base_url() ?>">Login</a>
       </p>
     </div>
     <!-- /.login-card-body -->

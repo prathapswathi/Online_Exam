@@ -31,7 +31,7 @@
         <a href="<?php echo base_url() ?>">Login</a>
       </p>
       <p class="mb-0">
-        <a href="<?php echo base_url() ?>LoginController/register" class="text-center">Register a new membership</a>
+        <a href="<?php echo base_url() ?>LoginController/sign_up" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.login-card-body -->

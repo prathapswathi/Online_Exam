@@ -17,7 +17,7 @@ Class Login_Model extends CI_Model {
 	}
  
 	public function getUserData($whereData){
-		$this->db->select("firstname,lastname,password,user_type,token");
+		$this->db->select("email,password,user_type,token");
 		if($result = $this->db->get_where("user",$whereData)){
 			return $result->first_row("array");
 		} else {
@@ -25,57 +25,6 @@ Class Login_Model extends CI_Model {
 		}
 	}
 
-//     public function login($data) {
-// 		 $username=$data['email'];
-// 		 $password=$data['password'];
-// 		 $this->db->where('email',$username);
-// 		// $this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
-// 		 $query=$this->db->get('user');
-// 		if($query->num_rows() > 0)
-// 		{
-// 			$row = $query->row();
-// 			if( password_verify($password, $row->password)){
-//             $data = array(
-// 					'username' => $row->email,
-// 					'password' => $row->password,
-// 					'user_type' => $row->user_type,
-// 					'last_activity'=>$row->last_activity
-//                     );
-// 			$this->session->set_userdata($data);
-// 			return true;	
-// 			}
-			
-// 		}
-// 		else{
-// 			return false;
-// 		}
-// 	}
-// 	public function	sess_login($data){
-// 		$username=$data['email'];
-		
-// 		$this->db->where('email',$username);
-// 		$query=$this->db->get('user');
-// 	   if($query->num_rows() > 0)
-// 	   {
-// 		$row = $query->row();
-// 	    $data = array(
-// 		'types' => $row->user_type
-// 	   );
-// 	   $this->session->set_userdata($data);
-// 		   return true;	  
-// 	   }
-// 	   else{
-// 		   return false;
-// 	   }
-// 	}
-// function UserType()
-// {
-// 	$this->db->distinct();
-// 	$this->db->select('user_type');
-// 	$this->db->from('user');
-// 	$query=$this->db->get()->result();
-// 	return $query;
-// }
  function register($firstname,$lastname,$email,$password,$utype)
  {
 	$this->db->set('firstname',$firstname);
@@ -86,6 +35,16 @@ Class Login_Model extends CI_Model {
 	$query=$this->db->insert('user');
 	return ($this->db->affected_rows() != 1) ? false : true;
  }
+
+ function UserType()
+{
+	$this->db->distinct();
+	$this->db->select('user_type');
+	$this->db->from('user');
+	$query=$this->db->get()->result();
+	return $query;
+}
+
  function ForgotPassword($email){
 	$this->db->select('email');
     $this->db->from('user');
@@ -113,46 +72,12 @@ Class Login_Model extends CI_Model {
  }
 function update_time($data)
 {
-	$username=$data['email'];
-	$password=$data['password'];
 	$this->db->set('last_activity','NOW()', FALSE);
-	$this->db->where('email',$username);
-	$this->db->where('password',$password);
-	$this->db->update('user');
+	$this->db->where('email',$data['email']);
+	$this->db->update("user");
  }
 
- function make_session($username,$token) {
-	$this->db->set('token',$token);
-	$this->db->where('email',$username);
-	$this->db->update('user');
-	if($this->db->affected_rows() == 1){
-	return true;	
-	}else{
-		return false;
-	}
-}
- function getSession($token){
-	$this->db->select('email');
-	$this->db->select('password');
-	$this->db->select('user_type');
-    $this->db->from('user');
-    $this->db->where('token',$token);
-    $query=$this->db->get();
-	if( $query->num_rows()>0)
-	{
-	$row = $query->row();
-	$data = array(
-		'sess_user' => $row->email,
-		'sess_password' => $row->password,
-	);
-	$this->session->set_userdata($data);
-	return true;
-	}
-	else
-	{
-		return false;
-	}
- }
+ 
 function __destruct() 
 {
     $this->db->close();

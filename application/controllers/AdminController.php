@@ -18,7 +18,6 @@ class AdminController extends CI_Controller{
     public function profile(){
         $this->load->library('session');
         $last_activity= $this->session->userdata('last_activity');
-
         $data=array(
             'username'=> $this->session->userdata('username'),
             'active'=>$last_activity,   

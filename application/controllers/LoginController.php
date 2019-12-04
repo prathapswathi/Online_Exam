@@ -23,146 +23,72 @@ class LoginController extends CI_Controller{
     $this->load->view('footer');
   
     }
-
-   
-public function login_validation(){
-    $validator = array('success' => false, 'messages' => array());
+  
+public function ajax_login()
+{
    $this->load->library('form_validation');
-   if(isset($_COOKIE['token']))
+   $this->load->model('Login_Model');
+   if(isset($_COOKIE['userToken']))
    {
      $this->token();
    }
-
-   else{
-        $this->form_validation->set_rules('username','Username','required');
-        $this->form_validation->set_rules('password','Password','required');
-       if($this->form_validation->run() == TRUE)
-        {
-            $data=array(
-            'email' => $this->input->post('username'),
-            'password' => $this->input->post('password'));
-     
-           $sess_password=$this->input->post('password');
-           $this->load->model('Login_Model');
-          
-           $login= $this->Login_Model->login($data);
-            if($login){
-                
-                if ($this->input->post("chkremember"))
-                {
-                    $username=$data['email'];
-                    $password=$sess_password;
-                    $str=rand(); 
-                    $token =md5($str);
-                   $this->session->set_userdata('token',$token);
-                    $this->input->set_cookie('token',$token,time()+ 360);
-                    if($remember=$this->Login_Model->make_session($username,$token));
-                    else
-                    alert("unable to set cookies");
-                } 
-                $type= $this->session->userdata('user_type');
-                if($type == 'admin')
-                {
-                //echo json_encode(['success' => true]);
-                
-				$validator['success'] = true;
-				$validator['messages'] = 'welcome admin';	
-                redirect(base_url(). 'AdminController/dashbord');
-                }
-                if($type == 'user')
-                {
-                    //echo json_encode(['success' => true]);
-                    $validator['success'] = true;
-				   $validator['messages'] = 'welcome user';
-                    redirect(base_url(). 'UserController/dashbord');   
-                }
-            }
-            else{
-               // echo json_encode(['success' => false]);
-
-               $validator['success'] = false;
-				$validator['messages'] = 'invalid username and password';
-                $this->session->set_flashdata('error','invalid username and password');
-                redirect(base_url(). 'LoginController/login');
-               
-            }
-
-        }
-        else{
-            $this->load->view('header');
-            $this->load->view('login');	
-            $this->load->view('footer');
-           
-        }
-   }
-   echo json_encode($validator);
-   
-}
-   
-   
-   
-      
-    public function token(){
-        if($_COOKIE['token'] == $_SESSION['token'])
-        {
-            $token=$_COOKIE['token'];
-            $this->load->model('Login_Model');
-            $remember=$this->Login_Model->getSession($token);
-            if($remember){
-            $username= $this->session->userdata('sess_user');
-            $password= $this->session->userdata('sess_password');
-            $password=password_hash($password,PASSWORD_DEFAULT);
-            $data=array(
-                'email' => $username);
-            $login=$this->Login_Model->sess_login($data);
-            if($login)
-            {
-               $this->user_type();
-            }
-            else{
-                $this->session->set_flashdata('error','error type');
-                echo json_encode(['success' => false]);
-                redirect(base_url(). 'LoginController/login');
-            }
-            }
-            else{
-                $this->session->set_flashdata('error','unable to get cookies data');
-                echo json_encode(['success' => false]);
-                redirect(base_url(). 'LoginController/login');
-            }
-        }
-        else{
-            $this->session->set_flashdata('error','invalid username and password');
-            echo json_encode(['success' => false]);
-            redirect(base_url(). 'LoginController/login');
-        }
-       }
-        public function user_type()
-        {
-            $type= $this->session->userdata('types');
-            if($type == 'admin')
-            {
-                echo json_encode(['success' => true]);
-            redirect(base_url(). 'AdminController/dashbord');
-            }
-            if($type == 'user')
-            {
-                echo json_encode(['success' => true]);
-                redirect(base_url(). 'UserController/dashbord');   
-            }
-            
-        }
-        function logout()
-        {
-         
-            $this->load->helper('cookie');
-            delete_cookie("token");
-            $this->session->unset_userdata('username');
-            $this->session->unset_userdata('token');
-            $this->session->unset_userdata('user_type');
-            $this->session->unset_userdata('types');
-            redirect(base_url(). '');	
-            
+   else {
+    $this->form_validation->set_rules('username','Username','required');
+    $this->form_validation->set_rules('password','Password','required');
     
-        }
+     if($this->form_validation->run() == TRUE)
+    {
+       $data['email']=$this->input->post('username');
+       $password=$this->input->post('password');
+       $UserData=$this->Login_Model->getUserData($data);
+       if(password_verify($password,$UserData['password'])){
+        $responseData['status'] = 'SUCCESS';
+        $responseData['user_type'] = $UserData['user_type'];
+            if(!empty($this->input->post("chkremember"))){
+                $responseData['remember'] = 'remember';
+                $token = md5(time());
+                set_cookie("userToken",$token,time()+3600);
+                $_SESSION['userToken'] = $token;
+                $this->Login_Model->setUserData($data,['token'=>$token]);
+            }
+       }
+       else{
+        $responseData['status'] = 'FAILE';
+        $responseData['message'] = "invalid username and password!! Please try again";
+       }
+    }
+    else{
+        $responseData['message'] = validation_errors();
+    }
+   
+    header("Content-Type: application/json");
+    echo json_encode($responseData);
+   }
+    
+ }
+public function token()
+{
+    $wheretoken['token'] = $_COOKIE['userToken'];
+    $this->load->model('Login_Model');
+    $getUserData = $this->Login_Model->getUserData($wheretoken);
+    if($_COOKIE['userToken'] == $getUserData['token']){
+        $responseData['status'] = 'SUCCESS';
+        $responseData['user_type'] = $getUserData['user_type'];
+    } else {
+        $responseData['status'] = 'FAIL';
+        $responseData['message'] = 'Unable to login';     
+   }
+    header("Content-Type: application/json");
+    echo json_encode($responseData);
+}
+function logout()
+{
+    delete_cookie("userToken");
+    $this->session->unset_userdata('username');
+    $this->session->unset_userdata('token');
+    $this->session->unset_userdata('user_type');
+    $this->session->unset_userdata('types');
+    redirect(base_url(). '');	
+    
+}
 }

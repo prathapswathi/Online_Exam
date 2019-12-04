@@ -15,7 +15,7 @@
             $('#show_hide_password input').attr('type', 'password');
             $('#show_hide_password i').addClass( "fa-eye-slash" );
             $('#show_hide_password i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password input').attr("type") == "password"){
+           }else if($('#show_hide_password input').attr("type") == "password"){
             $('#show_hide_password input').attr('type', 'text');
             $('#show_hide_password i').removeClass( "fa-eye-slash" );
             $('#show_hide_password i').addClass( "fa-eye" );
@@ -26,45 +26,7 @@
 
 
 
-<script>
-            document.addEventListener("DOMContentLoaded", function(event) { 
 
-              $('#login').submit(function(event) {
-
-                var u = $('#uname').val();
-                var p = $('#pass').val();
-                if (u == "" || p == "") {
-                $('#success-message').show().html('All Fields are required');
-                 } else {
-                $('#success-message').html("").hide();
-                  $.ajax({
-                      url : "http://localhost/Online_Exam/LoginController/login_validation", 
-                      type : "POST",
-                      dataType : "json",
-                      data : {
-                          username : u, 
-                          password : p
-                          },
-                      success : function($response) {
-                        if($response)
-                        {
-                            alert("Wrong Details");
-                        }
-                        if(response.messages == 'welcome admin')
-                        {
-                            http://localhost/Online_Exam/AdminController/dashbord
-                        }
-                      },
-                      error : function(response) {
-                        alert('Something went wrong');
-                         
-                      }
-                  });
-                 }
-                  return false;
-              });
-            }); 
-        </script>
 <script>
 $(document).ready(function(){
   $("#profile").click(function(){$("#data").load("<?php echo base_url().'AdminController/profile';?>")});

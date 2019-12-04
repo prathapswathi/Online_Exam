@@ -15,7 +15,7 @@
 <body >
 <div class="row" id="header">
 
-<a href="<?php echo base_url() ?>LoginController/login"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQeKWZufcuUnVBTEkA8Tl8-Uth6AYWZ_jTy4U3AuXGfq5J2h6Zw" class="img-circle" alt="admin_logo" id="admin-logo"></a>
+<a href="<?php echo base_url() ?>"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQeKWZufcuUnVBTEkA8Tl8-Uth6AYWZ_jTy4U3AuXGfq5J2h6Zw" class="img-circle" alt="admin_logo" id="admin-logo"></a>
 <br>
 <!-- <label>&nbsp;Welcome to Admin Dashboard</label> -->
 </div>

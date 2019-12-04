@@ -28,7 +28,7 @@
       </form>
 
       <p class="mt-3 mb-1">
-        <a href="<?php echo base_url() ?>LoginController/login">Login</a>
+        <a href="<?php echo base_url() ?>">Login</a>
       </p>
       <p class="mb-0">
         <a href="<?php echo base_url() ?>LoginController/register" class="text-center">Register a new membership</a>

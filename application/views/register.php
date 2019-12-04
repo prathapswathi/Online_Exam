@@ -103,7 +103,7 @@
         </a>
       </div>
 
-      <a href="<?php echo base_url() ?>LoginController/login" class="text-center">I already have a membership</a>
+      <a href="<?php echo base_url() ?>" class="text-center">I already have a membership</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->

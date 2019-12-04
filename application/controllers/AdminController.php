@@ -10,7 +10,7 @@ class AdminController extends CI_Controller{
     public function index(){
         $this->load->view('admin_profile');
     }
-    public function dashbord()
+    public function dashboard()
     {
         $this->load->view('admin_dashbord');
         $this->load->view('footer');

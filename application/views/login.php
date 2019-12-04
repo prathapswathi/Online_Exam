@@ -19,7 +19,9 @@ background-image: url('http://4liberty.eu/wp-content/uploads/2016/08/8314929977_
       <p class="login-box-msg">Sign in to start your session</p>
 
       <!-- <form id="login" action="<?php echo base_url() ?>LoginController/login_validation" method="post"> -->
-      <form id="login" name="login" method="post" action="<?php echo base_url() ?>LoginController/login_validation">
+      <!-- <form id="login" name="login" method="post" action="<?php echo base_url() ?>LoginController/login_validation">       -->
+    <form id="formLogin" name="login" onsubmit="return false;" >
+      
         <div class="input-group mb-3" >
           <input type="email" id="uname" name="username" class="form-control" placeholder="Email" value="">
           <div class="input-group-append">
@@ -40,7 +42,7 @@ background-image: url('http://4liberty.eu/wp-content/uploads/2016/08/8314929977_
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" name="chkremember" id="remember" value="Remember me" <?php if (get_cookie('token')) { ?> checked="checked" <?php } ?> >
+              <input type="checkbox" name="chkremember" id="remember" value="Remember me" <?php if (get_cookie('userToken')) { ?> checked="checked" <?php } ?> >
               <label for="remember">
                 Remember Me
               </label>
@@ -48,7 +50,7 @@ background-image: url('http://4liberty.eu/wp-content/uploads/2016/08/8314929977_
           </div>
           <!-- /.col -->
           <div class="col-4" >
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block" onclick="validateLogin();">Sign In</button>
           </div>
           <div id="success-message" style="color:red"> <?php echo $this->session->flashdata("error");
           ?>
@@ -82,3 +84,24 @@ background-image: url('http://4liberty.eu/wp-content/uploads/2016/08/8314929977_
 </div>
 <!-- /.login-box -->
 
+<script>
+ function validateLogin(){
+   $.post("<?= base_url();?>LoginController/ajax_login",$("#formLogin").serialize(),function(response){
+     console.log(response);
+     if(response.status == 'SUCCESS'){
+       if(response.user_type == 'admin'){
+         alert("welcome to admin dashboard");
+         window.location.href= "<?= base_url()?>AdminController/dashboard";
+       }
+      else{
+         alert("welcome to user dashboard");
+         window.location.href= "<?= base_url()?>UserController/dashboard";
+       }
+     }
+     else{
+      $("#success-message").html(response.message);
+      // window.location.href= "<?= base_url()?>LoginController/login";
+     }
+   })
+ }
+</script>

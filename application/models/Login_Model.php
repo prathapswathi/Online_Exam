@@ -8,58 +8,74 @@ Class Login_Model extends CI_Model {
         $this->load->database();
     }
  
-    public function login($data) {
-		 $username=$data['email'];
-		 $password=$data['password'];
-		 $this->db->where('email',$username);
-		// $this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
-		 $query=$this->db->get('user');
-		if($query->num_rows() > 0)
-		{
-			$row = $query->row();
-			if( password_verify($password, $row->password)){
-            $data = array(
-					'username' => $row->email,
-					'password' => $row->password,
-					'user_type' => $row->user_type,
-					'last_activity'=>$row->last_activity
-                    );
-			$this->session->set_userdata($data);
-			return true;	
-			}
+	public function setUserData($whereData,$updateData){
+		if($result = $this->db->update("user",$updateData,$whereData)){
+			return 'SUCCESS';
+		} else {
+			return 'FAIL';
+		}
+	}
+ 
+	public function getUserData($whereData){
+		$this->db->select("firstname,lastname,password,user_type,token");
+		if($result = $this->db->get_where("user",$whereData)){
+			return $result->first_row("array");
+		} else {
+			return [];
+		}
+	}
+
+//     public function login($data) {
+// 		 $username=$data['email'];
+// 		 $password=$data['password'];
+// 		 $this->db->where('email',$username);
+// 		// $this->db->where('password',password_verify('$password',PASSWORD_BCRYPT));
+// 		 $query=$this->db->get('user');
+// 		if($query->num_rows() > 0)
+// 		{
+// 			$row = $query->row();
+// 			if( password_verify($password, $row->password)){
+//             $data = array(
+// 					'username' => $row->email,
+// 					'password' => $row->password,
+// 					'user_type' => $row->user_type,
+// 					'last_activity'=>$row->last_activity
+//                     );
+// 			$this->session->set_userdata($data);
+// 			return true;	
+// 			}
 			
-		}
-		else{
-			return false;
-		}
-	}
-	public function	sess_login($data){
-		$username=$data['email'];
+// 		}
+// 		else{
+// 			return false;
+// 		}
+// 	}
+// 	public function	sess_login($data){
+// 		$username=$data['email'];
 		
-		$this->db->where('email',$username);
-		$query=$this->db->get('user');
-	   if($query->num_rows() > 0)
-	   {
-		
-		$row = $query->row();
-	    $data = array(
-		'types' => $row->user_type,
-	   );
-	   $this->session->set_userdata($data);
-		   return true;	  
-	   }
-	   else{
-		   return false;
-	   }
-	}
-function UserType()
-{
-	$this->db->distinct();
-	$this->db->select('user_type');
-	$this->db->from('user');
-	$query=$this->db->get()->result();
-	return $query;
-}
+// 		$this->db->where('email',$username);
+// 		$query=$this->db->get('user');
+// 	   if($query->num_rows() > 0)
+// 	   {
+// 		$row = $query->row();
+// 	    $data = array(
+// 		'types' => $row->user_type
+// 	   );
+// 	   $this->session->set_userdata($data);
+// 		   return true;	  
+// 	   }
+// 	   else{
+// 		   return false;
+// 	   }
+// 	}
+// function UserType()
+// {
+// 	$this->db->distinct();
+// 	$this->db->select('user_type');
+// 	$this->db->from('user');
+// 	$query=$this->db->get()->result();
+// 	return $query;
+// }
  function register($firstname,$lastname,$email,$password,$utype)
  {
 	$this->db->set('firstname',$firstname);

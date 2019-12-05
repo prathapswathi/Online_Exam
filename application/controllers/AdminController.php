@@ -16,9 +16,13 @@ class AdminController extends CI_Controller{
         $this->load->view('footer');
     }
     public function profile(){
-        $this->load->library('session');
-        $last_activity= $this->session->userdata('last_activity');
+        $this->load->model('Login_Model');
+        $data['email']=$this->session->userdata('username');
+        $UserData=$this->Login_Model->getUserData($data);
+        $last_activity= $UserData['last_activity'];
+        $name=$UserData['firstname'];
         $data=array(
+            'name'=>$name,
             'username'=> $this->session->userdata('username'),
             'active'=>$last_activity,   
         );

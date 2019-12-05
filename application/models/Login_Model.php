@@ -17,7 +17,7 @@ Class Login_Model extends CI_Model {
 	}
  
 	public function getUserData($whereData){
-		$this->db->select("email,password,user_type,token");
+		$this->db->select("firstname,email,password,user_type,token,last_activity");
 		if($result = $this->db->get_where("user",$whereData)){
 			return $result->first_row("array");
 		} else {

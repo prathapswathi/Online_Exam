@@ -72,11 +72,7 @@ class LoginController extends CI_Controller{
         }
         else{
             $responseData['message'] = validation_errors();
-            // $this->load->model('Login_Model');
-            // $data['utype']=$this->Login_Model->UserType(); 
-            // $this->load->view('header');
-            // $this->load->view('register',$data);	
-            // $this->load->view('footer');
+          
         }
         header("Content-Type: application/json");
     echo json_encode($responseData);
@@ -105,8 +101,12 @@ public function ajax_login()
        $data['email']=$this->input->post('username');
        $password=$this->input->post('password');
        $UserData=$this->Login_Model->getUserData($data);
+       
        if(password_verify($password,$UserData['password'])){
         $this->Login_Model->update_time($data);
+        $sess_data = array(
+            'username' => $UserData['email']);
+            $this->session->set_userdata($sess_data);
         $responseData['status'] = 'SUCCESS';
         $responseData['user_type'] = $UserData['user_type'];
             if(!empty($this->input->post("chkremember"))){
@@ -148,20 +148,51 @@ public function token()
     echo json_encode($responseData);
 }
 
-public function ForgotPassword()
+public function ajax_forgotPassword()
     {
-        $email = $this->input->post('email');
-        $this->load->model('Login_Model');
-        $findemail = $this->Login_Model->ForgotPassword($email);
-        if ($findemail) {
-          
-            redirect(base_url() . 'LoginController/recover');
-        } else {
-            echo "<script>alert(' $email not found, please enter correct email id')</script>";
-            redirect(base_url() . 'LoginController/reset', 'refresh');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('email','Email','trim|required|valid_email');
+        if($this->form_validation->run())
+        {
+            $email = $this->input->post('email');
+            $this->load->model('Login_Model');
+            $findemail = $this->Login_Model->ForgotPassword($email);
+            if ($findemail) {
+                $this->load->config('email');
+                $this->load->library('email');
+                
+                $from = $this->config->item('smtp_user');
+                $to = $email;
+                $subject = 'Reset Your Password';
+                $message = 'Please confirm your email to reset your password';
+        
+                $this->email->set_newline("\r\n");
+                $this->email->from($from);
+                $this->email->to($to);
+                $this->email->subject($subject);
+                $this->email->message($message);
+                if($this->email->send()){
+                    $responseData['status'] = 'SUCCESS';
+                }
+                else{
+                    $responseData['status'] = 'FAIL';
+                    $responseData['message'] = 'Unable to send mail !!!!!!!';
+                }
+              // $responseData['status'] = 'SUCCESS';
+                
+            } else {
+                $responseData['status'] = 'FAIL';
+                $responseData['message'] = 'email not found, please enter correct email id';
+            }
         }
+        else {
+            $responseData['message'] = validation_errors();
+        }
+       
+        header("Content-Type: application/json");
+        echo json_encode($responseData);
     }
-    public function new_password()
+    public function ajax_changePassword()
     {
         $this->load->library('session');
         $this->load->model('Login_Model');
@@ -176,26 +207,27 @@ public function ForgotPassword()
         $hpassword = password_hash($password,PASSWORD_DEFAULT);
       
         if($this->Login_Model->new_password($hpassword)){
-            echo "<script>alert(' Successfully changed the password')</script>";
-            redirect(base_url(). 'LoginController/login');
+            
+            $responseData['status'] = 'SUCCESS';
         }
         else{
-            echo "<script>alert('Unable to change the password')</script>";
-            redirect(base_url(). 'LoginController/login');
+            $responseData['status'] = 'FAIL';
+                $responseData['message'] = 'Unable to change the password!!Please try again';
         }
         }
         else{
-            $this->load->view('header');
-            $this->load->view('change_password');	
-            $this->load->view('footer');
+            $responseData['message'] = validation_errors();
+            
         }
-
+        header("Content-Type: application/json");
+        echo json_encode($responseData);
     }
 
 function logout()
 {
     delete_cookie("userToken");
     $this->session->unset_userdata('username');
+    $this->session->unset_userdata('email');
     $this->session->unset_userdata('token');
     $this->session->unset_userdata('user_type');
     $this->session->unset_userdata('types');

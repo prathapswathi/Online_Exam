@@ -13,7 +13,7 @@
 <img src="https://www.donegaldaily.com/wp-content/uploads/2016/06/Receptionist.jpg" alt="admin" class="img-rounded" >
 </div>
 <div class="col-sm">
-<br><p>Name:Admin</p>
+<br><p>Name:<?php echo $name ?></p>
 <p>Company:Impelsys</p>
 <p>Email:<?php echo $username ?></p>
 <p>Last Active:<?php echo $active ?></p>

@@ -160,25 +160,29 @@ public function ajax_forgotPassword()
             if ($findemail) {
                 $this->load->config('email');
                 $this->load->library('email');
-                
-                $from = $this->config->item('smtp_user');
+                $this->load->library('encrypt');
+                $link='http://localhost/Online_Exam/LoginController/recover';
+                $from = 'swathi8498@gmail.com';
                 $to = $email;
                 $subject = 'Reset Your Password';
-                $message = 'Please confirm your email to reset your password';
+                $message = "Please click here to reset your password <a href='http://localhost/Online_Exam/LoginController/recover' >Reset Password</a>";
+                //$message =$link;
         
                 $this->email->set_newline("\r\n");
-                $this->email->from($from);
+                $this->email->from($from,'Reset your password');
                 $this->email->to($to);
                 $this->email->subject($subject);
                 $this->email->message($message);
                 if($this->email->send()){
+                
                     $responseData['status'] = 'SUCCESS';
+                    // $responseData['message'] = 'Password reset link sent to your provided mail !!!';
                 }
                 else{
                     $responseData['status'] = 'FAIL';
                     $responseData['message'] = 'Unable to send mail !!!!!!!';
                 }
-              // $responseData['status'] = 'SUCCESS';
+             //$responseData['status'] = 'SUCCESS';
                 
             } else {
                 $responseData['status'] = 'FAIL';

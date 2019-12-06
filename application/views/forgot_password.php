@@ -44,8 +44,9 @@
    $.post("<?= base_url();?>LoginController/ajax_forgotPassword",$("#formForgotPassword").serialize(),function(response){
      console.log(response);
      if(response.status == 'SUCCESS'){
-         alert('Your email verified');
-         window.location.href= "<?= base_url()?>LoginController/recover";
+      $("#success-message").html(response.message);
+        alert('Password reset link sent to your provided mail !!!');
+        
        }
        else{
         $("#success-message").html(response.message);

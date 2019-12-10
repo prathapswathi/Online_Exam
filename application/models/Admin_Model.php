@@ -35,6 +35,16 @@ Class Admin_Model extends CI_Model {
     $image=$row->image;
     return $image;
 }
+public function read_topics()
+{
+  $id=5;
+  $this->db->select("course_id,course_name,description,image");
+  $this->db->from('topics');
+    $this->db->where('id',$id);
+    $query = $this->db->get()->result();
+    return $query;
+		
+}
   public function delete($id,$image)
   {
     unlink("./images/".$image);

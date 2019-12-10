@@ -33,7 +33,7 @@
     			<span class='glyphicon glyphicon-list'></span> Read
 				</a>
  
-				<a href='' class='btn btn-info left-margin'>
+				<a href='#read_topics' id='read_topics' class='btn btn-info left-margin'>
     			<span class='glyphicon glyphicon-edit'></span> Edit
 				</a>
  

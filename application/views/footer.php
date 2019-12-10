@@ -33,7 +33,7 @@ $(document).ready(function(){
    $("#topics").click(function(){$("#data").load("<?php echo base_url().'AdminController/topics';?>")});
    $("#add_topics").click(function(){$("#data").load("<?php echo base_url().'AdminController/add_topics';?>")});
    $("#add_questions").click(function(){$("#data").load("<?php echo base_url().'AdminController/add_questions';?>")});
-//   $("#Subb").click(function(){$("#posts").load("chapters/Subb.php")});
+  $("#read_topics").click(function(){$("#data").load("<?php echo base_url().'AdminController/read_topics';?>")});
 });
 </script>
 

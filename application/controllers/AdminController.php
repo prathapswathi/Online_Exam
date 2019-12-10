@@ -36,6 +36,14 @@ class AdminController extends CI_Controller{
         $this->load->view('topics',$data);
         $this->load->view('footer');
     }
+    public function read_topics()
+    {
+        $this->load->model('Admin_Model');  
+        $data['get_topics']=$this->Admin_Model->read_topics(); 
+        $this->load->view('read_topics',$data);
+        $this->load->view('footer');
+        
+    }
     public function add_topics()
     {      
         $this->load->view('add_topics');
@@ -101,6 +109,7 @@ class AdminController extends CI_Controller{
         }
 
     }
+    
     public function delete($id)
     {
         $this->load->model('Admin_Model');

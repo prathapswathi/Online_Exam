@@ -36,12 +36,15 @@ class AdminController extends CI_Controller{
         $this->load->view('topics',$data);
         $this->load->view('footer');
     }
-    public function read_topics()
+    public function read_topics($id)
     {
+       
+       // $id=$this->input->post('id');
         $this->load->model('Admin_Model');  
-        $data['get_topics']=$this->Admin_Model->read_topics(); 
+        $data['get_topics']=$this->Admin_Model->read_topics($id); 
         $this->load->view('read_topics',$data);
         $this->load->view('footer');
+     
         
     }
     public function add_topics()
@@ -49,6 +52,32 @@ class AdminController extends CI_Controller{
         $this->load->view('add_topics');
         $this->load->view('footer');
     }
+    public function edit_topics($id)
+    {
+        $this->load->model('Admin_Model');  
+        $data['get_topics']=$this->Admin_Model->read_topics($id); 
+        $this->load->view('edit_topics',$data);
+        $this->load->view('footer');
+    }
+    public function edit_topics_action($id)
+    {
+        $this->load->view('footer');
+        $topic_id=$this->input->post('course_id');
+        $topic_name=$this->input->post('course_name');
+        $desc=$this->input->post('desc');
+        $this->load->model('Admin_Model');   
+        if($this->Admin_Model->edit_topics($id,$topic_id,$topic_name,$desc))
+        { 
+            echo "<script>alert('The topics updated successfully....!')</script>";
+  
+             redirect(base_url(). 'AdminController/dashboard');
+         }
+        else{
+            $this->session->set_flashdata('error','Unable to Create topics');
+            redirect(base_url(). 'AdminController/edit_topics/$id');
+             }
+ }
+               
     public function add_topics_action()
     {  
         $this->load->library('upload');
@@ -88,7 +117,7 @@ class AdminController extends CI_Controller{
                    $topics=$this->Admin_Model->add_topics($topic_id,$topic_name,$desc,$image);
     
                    if($topics){   
-                        redirect(base_url(). 'AdminController/dashbord');
+                        redirect(base_url(). 'AdminController/dashboard');
                     }
                     else{
                         $this->session->set_flashdata('error','Unable to Create topics');
@@ -125,3 +154,6 @@ class AdminController extends CI_Controller{
     }
     }
 }
+
+
+       

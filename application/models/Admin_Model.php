@@ -35,14 +35,30 @@ Class Admin_Model extends CI_Model {
     $image=$row->image;
     return $image;
 }
-public function read_topics()
+public function read_topics($id)
 {
-  $id=5;
-  $this->db->select("course_id,course_name,description,image");
+
+  $this->db->select("id,course_id,course_name,description,image");
   $this->db->from('topics');
     $this->db->where('id',$id);
-    $query = $this->db->get()->result();
+    $query=$this->db->get()->result();
     return $query;
+		
+}
+public function edit_topics($id,$course_id,$course_name,$description,$image)
+{
+
+  $this->db->set('course_id',$course_id);
+  $this->db->set('course_name',$course_name);
+  $this->db->set('description',$description);
+    $this->db->where('id',$id);
+    $this->db->update('topics');
+    if($this->db->affected_rows() >=0){
+      return true; //add your code here
+    }else{
+      return false; //add your your code here
+    }
+   
 		
 }
   public function delete($id,$image)

@@ -29,11 +29,11 @@
                 <td><?php echo $row->description;?></td>
                 <td><img style="width:110px;height:110px" alt="image" src="<?php echo base_url().'/images/'.$row->image?>" class="img-responsive"></td>
                 <td>    
-				<a href='' class='btn btn-primary left-margin'>
+				<a href="<?php echo base_url().'/AdminController/read_topics/'.$row->id?>" id='read_topics' class='btn btn-primary left-margin'>
     			<span class='glyphicon glyphicon-list'></span> Read
 				</a>
  
-				<a href='#read_topics' id='read_topics' class='btn btn-info left-margin'>
+				<a href='<?php echo base_url().'/AdminController/edit_topics/'.$row->id?>' id='edit_topics' class='btn btn-info left-margin'>
     			<span class='glyphicon glyphicon-edit'></span> Edit
 				</a>
  

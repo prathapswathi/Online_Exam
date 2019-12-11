@@ -33,7 +33,8 @@ $(document).ready(function(){
    $("#topics").click(function(){$("#data").load("<?php echo base_url().'AdminController/topics';?>")});
    $("#add_topics").click(function(){$("#data").load("<?php echo base_url().'AdminController/add_topics';?>")});
    $("#add_questions").click(function(){$("#data").load("<?php echo base_url().'AdminController/add_questions';?>")});
-  $("#read_topics").click(function(){$("#data").load("<?php echo base_url().'AdminController/read_topics';?>")});
+//   $("#read_topics").click(function(){$("#data").load("<?php echo base_url().'AdminController/read_topics/$row->id';?>")});
+//   $("#edit_topics/$id").click(function(){$("#data").load("<?php echo base_url().'AdminController/edit_topics/$id';?>")});
 });
 </script>
 

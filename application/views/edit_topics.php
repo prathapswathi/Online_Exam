@@ -13,7 +13,7 @@
 </head>
 
 <div class="container">
-<input type="button" class='btn btn-default pull-right'  value="Edit Topics">
+<a href='<?=base_url()?>/AdminController/dashboard#topics' id='topics'><input type="button"  class='btn btn-default pull-right'  value="Topics"></a>
 <?php
 
 foreach ($get_topics as $row)  

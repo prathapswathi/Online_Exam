@@ -25,6 +25,16 @@ Class Admin_Model extends CI_Model {
     $query = $this->db->get()->result();
     return $query;
   }
+  public function record_count() {
+    return $this->db->count_all('topics');
+  }
+  
+  public function get_topics($limit, $start) {
+    $this->db->limit($limit, $start);
+    $query = $this->db->get('topics');
+    return $query->result();
+  }
+  
   public function get($id)
 {
     $this->db->select('image');
@@ -57,10 +67,9 @@ public function edit_topics($id,$course_id,$course_name,$description,$image)
       return true; //add your code here
     }else{
       return false; //add your your code here
-    }
-   
-		
+    }	
 }
+
   public function delete($id,$image)
   {
     unlink("./images/".$image);

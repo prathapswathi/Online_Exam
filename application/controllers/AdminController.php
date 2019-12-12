@@ -5,10 +5,12 @@ class AdminController extends CI_Controller{
     {
         parent::__construct();
         $this->load->helper('url');
+        $this->load->library('pagination');
     }
    
     public function index(){
         $this->load->view('admin_profile');
+        
     }
     public function dashboard()
     {
@@ -31,11 +33,38 @@ class AdminController extends CI_Controller{
 
     public function topics()
     {
-       $this->load->model('Admin_Model');
-         $data['h']=$this->Admin_Model->topics();    
-        $this->load->view('topics',$data);
-        $this->load->view('footer');
-    }
+        $this->load->model('Admin_Model');
+    //      $data['h']=$this->Admin_Model->topics();    
+    //     $this->load->view('topics',$data);
+    //     $this->load->view('footer');
+$config = array();
+$config["base_url"] = base_url() . "AdminController/topics";
+$total_row = $this->Admin_Model->record_count();
+$config["total_rows"] = $total_row;
+$config["per_page"] = 1;
+$config['use_page_numbers'] = TRUE;
+$config['num_links'] = $total_row;
+$config['cur_tag_open'] = '&nbsp;<a class="current">';
+$config['cur_tag_close'] = '</a>';
+$config['next_link'] = 'Next';
+$config['prev_link'] = 'Previous';
+
+$this->pagination->initialize($config);
+if($this->uri->segment(2)){
+$page = ($this->uri->segment(2)) ;
+}
+else{
+$page = 1;
+}
+$data["h"] = $this->Admin_Model->get_topics($config["per_page"], $page);
+$str_links = $this->pagination->create_links();
+$data["links"] = explode('&nbsp;',$str_links );
+
+// View data according to array.
+$this->load->view("topics", $data);
+$this->load->view("footer");
+
+  }
     public function read_topics($id)
     {
        

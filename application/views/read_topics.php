@@ -13,7 +13,7 @@
 </head>
 
 <div class="container">
-<input type="button" class='btn btn-default pull-right'  value="Read Topics">
+<a href="<?=base_url()?>/AdminController/dashboard#topics" id="topics"><input type="button" class='btn btn-default pull-right'  value="Topics"></a>
 <form name="myform" enctype="multipart/form-data" method="post" id="myform" > 
 <div class="row">
 <div class="col-sm-6 ">
